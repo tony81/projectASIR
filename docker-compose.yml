@@ -1,5 +1,13 @@
 version: '2'
 
+networks:
+  network1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.128.0/16
+          gateway: 172.20.128.1
+
 services:
    node1:
      image: nginx:latest
@@ -11,6 +19,9 @@ services:
      links:
         - php
         - database
+     networks:
+       network1:
+         ipv4_address: 172.20.128.2
 
    node2:
      image: nginx:latest
@@ -22,6 +33,9 @@ services:
      links:
         - php
         - database
+     networks:
+       network1:
+         ipv4_address: 172.20.128.3
 
    node3:
      image: nginx:latest
@@ -33,6 +47,9 @@ services:
      links:
         - php
         - database
+     networks:
+       network1:
+         ipv4_address: 172.20.128.4
 
    proxy:
      image: nginx:latest
@@ -43,7 +60,9 @@ services:
       - node1
       - node2
       - node3
-
+     networks:
+       network1:
+         ipv4_address: 172.20.128.5
    php:
      build:
        context:  ./php
@@ -51,6 +70,9 @@ services:
      #image: php:7-fpm
      volumes:
         - ./code:/code
+     networks:
+       network1:
+         ipv4_address: 172.20.128.6
 
    database:
      image: mysql/mysql-server
@@ -58,6 +80,9 @@ services:
      restart: always
      environment:
        MYSQL_ROOT_PASSWORD: mysql
+     networks:
+       network1:
+         ipv4_address: 172.20.128.7
 
    adminer:
      image: adminer
@@ -66,6 +91,10 @@ services:
        - 8080:8080
      links:
        - database
+     networks:
+       network1:
+         ipv4_address: 172.20.128.8
+
 
 #   firewall:
 #     image: biarca/iptables
