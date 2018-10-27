@@ -1,7 +1,7 @@
 <?php
 
 echo '<pre><h3>';
-print_r($_SERVER['FOO']);
+print_r($_SERVER['ENV']);
 echo '</h3></pre>';
 echo "<br/>";
 
