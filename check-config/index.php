@@ -19,5 +19,4 @@ echo "Información del host: " . mysqli_get_host_info($enlace) . PHP_EOL;
 
 mysqli_close($enlace);
 
-//print_r($_SERVER['FOO']);
-//phpinfo();
+phpinfo();
