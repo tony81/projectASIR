@@ -11,10 +11,8 @@ networks:
 services:
    node1:
      image: nginx:latest
-     expose:
-        - "80"
      volumes: 
-        - ./code:/code
+        - ./code/src:/code/src
         - ./nginx-nodes/site1.conf:/etc/nginx/conf.d/site.conf
      links: 
         - php
@@ -25,10 +23,8 @@ services:
 
    node2:
      image: nginx:latest
-     expose:
-        - "80"
      volumes:
-        - ./code:/code
+        - ./code/src:/code/src
         - ./nginx-nodes/site2.conf:/etc/nginx/conf.d/site.conf
      links:
         - php
@@ -39,10 +35,8 @@ services:
 
    node3:
      image: nginx:latest
-     expose:
-        - "80"
      volumes:
-        - ./code:/code
+        - ./code/src:/code/src
         - ./nginx-nodes/site3.conf:/etc/nginx/conf.d/site.conf
      links:
         - php
@@ -53,7 +47,6 @@ services:
 
    proxy:
      image: nginx:latest
-     #command: bash -c "rm /etc/nginx/conf.d/default.conf && rm -r /etc/nginx/conf.d"
      volumes:
         - ./nginx-balancer/balancer.conf:/etc/nginx/nginx.conf
      links: 
@@ -69,7 +62,7 @@ services:
        context:  ./php
        dockerfile: Dockerfile
      volumes:
-        - ./code:/code
+        - ./code/src:/code/src
      networks:
        network1:
          ipv4_address: 172.20.128.6
@@ -94,10 +87,3 @@ services:
      networks:
        network1:
          ipv4_address: 172.20.128.8
-
-
-#   firewall:
-#     image: biarca/iptables
-#     cap_add:
-#       - NET_ADMIN
-#     command: iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 172.18.0.6:80 && iptables -t nat -A POSTROUTING -j MASQUERADE
