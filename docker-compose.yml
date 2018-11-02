@@ -50,7 +50,7 @@ services:
      volumes:
         - ./nginx-balancer/balancer.conf:/etc/nginx/nginx.conf
         - ./nginx-balancer/www.haproject-asir.com.key:/etc/nginx/www.haproject-asir.com.key
-        - ./nginx-balancer/www.haproject-asir.com.crt:/etc/nginx/www.haproject-asir.com.crt
+        - ./nginx-balancer/pub.www.haproject-asir.com.pem:/etc/nginx/pub.www.haproject-asir.com.pem
      links: 
       - node1
       - node2
