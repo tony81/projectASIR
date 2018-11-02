@@ -49,8 +49,11 @@ services:
      image: nginx:latest
      volumes:
         - ./nginx-balancer/balancer.conf:/etc/nginx/nginx.conf
-        - ./nginx-balancer/ssl-cert/www.haproject-asir.com.key:/etc/nginx/www.haproject-asir.com.key
-        - ./nginx-balancer/ssl-cert/www.haproject-asir.com.pem:/etc/nginx/www.haproject-asir.com.pem
+        #- ./nginx-balancer/ssl-cert/www.haproject-asir.com.key:/etc/nginx/www.haproject-asir.com.key
+        #- ./nginx-balancer/ssl-cert/www.haproject-asir.com.crt:/etc/nginx/www.haproject-asir.com.crt
+        - ./nginx-balancer/ssl-cert/server.key:/etc/nginx/www.haproject-asir.com.key
+        - ./nginx-balancer/ssl-cert/server.crt:/etc/nginx/www.haproject-asir.com.crt
+
      links: 
       - node1
       - node2
